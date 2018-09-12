@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option go_package = "proto";
+
+import "google/api/annotations.proto";
+
+message EmptyMessages {
+}
+
+message GetWeatherResponse {
+    string cityName = 1;
+    repeated int32 maxTemperature = 2;
+    repeated int32 minTemperature = 3;
+    repeated string date = 4;
+    repeated string week = 5;
+    repeated DayWeather dayWeather = 6;
+}
+
+message DayWeather {
+    string date = 1;
+    int32 maxTemperature = 2;
+    int32 minTemperature = 3;
+    string weather = 4;
+    string week = 5;
+    string img = 6;
+}
+
+
+message Article {
+    int32 id = 1;
+    string title = 2;
+    string coverImg = 3;
+    int32 readCount = 4;
+    int32 favouriteCount = 5;
+    string abstract = 6;
+    int32 commentCount = 7;
+    string filePath = 8;
+    string createdAt = 9;
+    string tag = 10;
+}
+
+message ListArticlesResponse {
+    repeated Article articles = 1;
+}
+
+message ListArticlesRequest {
+    int32 pageIndex = 1;
+    int32 pageSize = 2;
+}
+
+service BlogService {
+
+    rpc GetWeather (EmptyMessages) returns (GetWeatherResponse) {
+        option (google.api.http) = {
+           get: "/api/get-weather"
+        };
+    };
+
+    rpc ListArticles (ListArticlesRequest) returns (ListArticlesResponse) {
+        option (google.api.http) = {
+           get: "/api/list-article"
+        };
+    };
+}

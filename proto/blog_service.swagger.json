@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/blog_service.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/get-weather": {
+      "get": {
+        "operationId": "GetWeather",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetWeatherResponse"
+            }
+          }
+        },
+        "tags": [
+          "BlogService"
+        ]
+      }
+    },
+    "/api/list-article": {
+      "get": {
+        "operationId": "ListArticles",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListArticlesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "BlogService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Article": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "coverImg": {
+          "type": "string"
+        },
+        "readCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "favouriteCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "abstract": {
+          "type": "string"
+        },
+        "commentCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "filePath": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    "DayWeather": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "maxTemperature": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "minTemperature": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "weather": {
+          "type": "string"
+        },
+        "week": {
+          "type": "string"
+        },
+        "img": {
+          "type": "string"
+        }
+      }
+    },
+    "GetWeatherResponse": {
+      "type": "object",
+      "properties": {
+        "cityName": {
+          "type": "string"
+        },
+        "maxTemperature": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "minTemperature": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "date": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "week": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dayWeather": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DayWeather"
+          }
+        }
+      }
+    },
+    "ListArticlesResponse": {
+      "type": "object",
+      "properties": {
+        "articles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Article"
+          }
+        }
+      }
+    }
+  }
+}
